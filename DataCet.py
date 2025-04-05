@@ -13,6 +13,7 @@ dias = pd.date_range(start="2025-01-01", periods=30, freq='D')  # 30 días
 asistencia_data = []  # Registro de asistencias
 
 # Crear registros con '1' para asistencia y '0' para ausencia (con algunas ausencias repetidas para anomalías)
+#Data cet
 for empleado in empleados:
     asistencias = np.random.choice([0, 1], size=30, p=[0.1, 0.9])  # Genera un arreglo de tamaño 30 con 0 o 1 simulando la asistencia
     # Introducir algunas anomalías (ausencias seguidas)
@@ -36,7 +37,7 @@ print(df)  # Mostramos el dataframe
 df_bin = df.applymap(lambda x: 1 if x == 0 else 0)
 
 # Aplicar Isolation Forest para detectar anomalías
-model = IsolationForest(contamination=0.1, random_state=42)  # Ajustar el valor de 'contamination' si es necesario
+model = IsolationForest(contamination=0.1, random_state=42)  # El valor de contaminacion esta en 10% dado que esperamos ese porcentaje de ausentismo.
 model.fit(df_bin)
 
 # Predecir anomalías
