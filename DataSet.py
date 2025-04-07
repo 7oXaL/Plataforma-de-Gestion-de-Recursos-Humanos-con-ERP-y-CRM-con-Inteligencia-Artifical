@@ -8,16 +8,16 @@ from sklearn.ensemble import IsolationForest
 np.random.seed()  # Semilla de aleatoriedad
 
 # Simulación de datos de 100 empleados y 30 días de registros
-empleados = [f"Empleado_{i}" for i in range(1, 101)]  # Creación de los 100 empleados
+empleados = [f"Empleado_{i}" for i in range(1, 31)]  # Creación de los 30 empleados
 
-dias = pd.date_range(start="2025-01-01", periods=30, freq='D')  # 30 días
+dias = pd.date_range(start="2025-01-01", periods=20, freq='D')  # 20 días
 
 asistencia_data = []  # Registro de asistencias
 
 # Crear registros con '1' para asistencia y '0' para ausencia (con algunas ausencias repetidas para anomalías)
 #Dataset
 for empleado in empleados:
-    asistencias = np.random.choice([0, 1], size=30, p=[0.1, 0.9])  # Genera un arreglo de tamaño 30 con 0 o 1 simulando la asistencia
+    asistencias = np.random.choice([0, 1], size=20)  # Genera un arreglo de tamaño 20 con 0 o 1 simulando la asistencia
     asistencia_data.append(asistencias)
 
 # Crear un DataFrame (Tabla con DIAS con el valor de asistencia por empleado)
@@ -27,10 +27,10 @@ df = pd.DataFrame(asistencia_data, columns=dias.strftime('%Y-%m-%d'), index=empl
 escritorio = os.path.join(os.path.expanduser("~"), "Desktop")
 
 # Crear la ruta completa del archivo
-ruta_archivo = os.path.join(escritorio, "Asistencia de datos.txt")
+ruta_archivo = os.path.join(escritorio, "Asistencia de datos.xlsx")
 
 # Guardar el DataFrame como .txt (convertido a matriz)
-np.savetxt(ruta_archivo, df.values, fmt="%d", delimiter=" ")
+df.to_excel(ruta_archivo, index=True, header=True)
 
 print(f"Archivo guardado en: {ruta_archivo}")
 
@@ -63,8 +63,8 @@ print(resultados)
 # 1. Graficar la asistencia de los primeros 5 empleados (para ver la distribución)
 plt.figure(figsize=(10, 6))
 
-# Seleccionamos algunos empleados para visualización
-empleados_grafico = empleados[:100]
+# Seleccionamos los empleados para visualización
+empleados_grafico = empleados[:30]
 df_grafico = df.loc[empleados_grafico]
 
 # Crear un heatmap de asistencia: filas = empleados, columnas = días
