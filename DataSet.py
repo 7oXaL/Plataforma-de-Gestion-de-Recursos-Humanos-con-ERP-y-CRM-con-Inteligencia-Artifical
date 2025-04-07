@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+import seaborn as sns
 from sklearn.ensemble import IsolationForest
 
 np.random.seed()  # Semilla de aleatoriedad
@@ -66,9 +67,14 @@ plt.figure(figsize=(10, 6))
 empleados_grafico = empleados[:100]
 df_grafico = df.loc[empleados_grafico]
 
-# Graficamos las asistencias de esos empleados
-df_grafico.T.plot(kind="line", marker="o", title="Registros de Asistencia de Empleados", figsize=(12, 6))
+# Crear un heatmap de asistencia: filas = empleados, columnas = días
+plt.figure(figsize=(15, 10))
+sns.heatmap(df, cmap="Greens", cbar_kws={'label': 'Asistencia'}, linewidths=0.2, linecolor='gray')
+
+plt.title("Mapa de Calor de Asistencia de Empleados (1 = Asistió, 0 = Ausente)", fontsize=14)
 plt.xlabel("Días")
-plt.ylabel("Asistencia")
-plt.grid(True)
+plt.ylabel("Empleados")
+plt.xticks(rotation=45, ha='right')
+plt.yticks(rotation=0)
+plt.tight_layout()
 plt.show()
