@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 from sklearn.ensemble import IsolationForest
 
 np.random.seed()  # Semilla de aleatoriedad
@@ -20,6 +21,17 @@ for empleado in empleados:
 
 # Crear un DataFrame (Tabla con DIAS con el valor de asistencia por empleado)
 df = pd.DataFrame(asistencia_data, columns=dias.strftime('%Y-%m-%d'), index=empleados)
+
+# Obtener ruta del escritorio del usuario
+escritorio = os.path.join(os.path.expanduser("~"), "Desktop")
+
+# Crear la ruta completa del archivo
+ruta_archivo = os.path.join(escritorio, "Asistencia de datos.txt")
+
+# Guardar el DataFrame como .txt (convertido a matriz)
+np.savetxt(ruta_archivo, df.values, fmt="%d", delimiter=" ")
+
+print(f"Archivo guardado en: {ruta_archivo}")
 
 # Mostrar los primeros registros de asistencia
 print("Datos de Asistencia:")
