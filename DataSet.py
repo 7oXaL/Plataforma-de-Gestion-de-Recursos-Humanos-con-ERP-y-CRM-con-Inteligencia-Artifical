@@ -9,7 +9,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 
 np.random.seed()  # Semilla de aleatoriedad
 
-# Simulación de datos de 100 empleados y 30 días de registros
+# Simulación de datos de 30 empleados y 20 días de registros
 empleados = [f"Empleado_{i}" for i in range(1, 31)]  # Creación de los 30 empleados
 
 dias = pd.date_range(start="2025-01-01", periods=20, freq='D')  # 20 días
