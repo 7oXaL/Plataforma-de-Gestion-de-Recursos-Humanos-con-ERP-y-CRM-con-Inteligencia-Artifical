@@ -42,7 +42,7 @@ df_bin = df.applymap(lambda x: 1 if x == 0 else 0)
 
 
 # Aplicar Isolation Forest para detectar anomalías
-model = IsolationForest(contamination=0.2, random_state=42)  # El valor de contaminacion esta en 10% dado que esperamos ese porcentaje de ausentismo.
+model = IsolationForest(contamination=0.2, random_state=42)  # El valor de contaminacion esta en 20% dado que esperamos ese porcentaje de ausentismo.
 model.fit(df_bin)
 
 # Predecir anomalías
